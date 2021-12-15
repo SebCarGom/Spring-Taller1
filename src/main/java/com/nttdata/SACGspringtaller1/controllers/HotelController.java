@@ -1,7 +1,10 @@
 package com.nttdata.SACGspringtaller1.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,81 +16,85 @@ import com.nttdata.SACGspringtaller1.services.PersonServiceI;
 
 @Controller
 @RequestMapping("/home/")
-public class HotelController implements HotelControllerI{
+public class HotelController implements HotelControllerI {
 
 	@Autowired
 	private HotelServiceI hotelService;
-	
+
 	@Autowired
 	private PersonServiceI personService;
-	
+
+	@Override
+	@GetMapping
+	public String homeHotel() {
+		return "/home";
+	}
+
 	@Override
 	@PostMapping("/addHotel")
 	public String addHotel(Hotel hotel) {
 
-		final String viewResult = "erroresV";
-		
-		hotelService.addHotel(hotel);
-		
-		return viewResult;
-		
-	}
+		String viewResult = "errorsV";
 
-	@Override
-	@GetMapping("/showFloors")
-	public String showFloors() {
+		hotel = hotelService.addHotel(hotel);
 
-		final String viewResult = "listaPlantasV";
-		
-		return viewResult;
-	}
+		if (hotel != null) {
+			viewResult = "/home";
+		}
 
-	@Override
-	@GetMapping("/showApartments")
-	public String showApartments() {
-		final String viewResult = "listaApartamentosV";
-		
 		return viewResult;
 	}
 
 	@Override
 	@PostMapping("/addPerson")
 	public String addPerson(Person person) {
-		final String viewResult = "erroresV";
-		
-		personService.addNewPerson(person);;
-		
+
+		String viewResult = "errorsV";
+
+		person = personService.addNewPerson(person);
+		;
+
+		if (person != null) {
+			viewResult = "/home";
+		}
+
 		return viewResult;
 	}
 
 	@Override
 	@GetMapping("/showPeople")
-	public String showPeople() {
-		final String viewResult = "listaPersonasV";
-		
-		personService.showPeople();
-		
+	public String showPeople(Model model) {
+		final String viewResult = "peopleListView";
+
+		final List<Person> results = personService.showPeople();
+
+		model.addAttribute("peopleList", results);
+
 		return viewResult;
 	}
 
 	@Override
-	@GetMapping("/showPerson")
-	public String showPeopleByName(final String Name) {
-		final String viewResult = "PersonaV";
-		
-		personService.getPersonByName(Name);
-		
+	@PostMapping("/findByName")
+	public String findByName(String personName, Model model) {
+		final String viewResult = "personFullNameView";
+
+		final List<Person> result = personService.getPersonByName(personName);
+
+		model.addAttribute("peopleFullName", result);
+
 		return viewResult;
 	}
 
 	@Override
-	@GetMapping("/showPerson")
-	public String showPeopleBySurname(final String personSurname) {
-		final String viewResult = "PersonaV";
-		
-		personService.getPersonBySurname(personSurname);
-		
+	@PostMapping("/findBySurname")
+	public String findBySurname(String personSurname, Model model) {
+		final String viewResult = "personFullNameView";
+
+		final List<Person> result = personService.getPersonBySurname(personSurname);
+
+		model.addAttribute("peopleFullName", result);
+
 		return viewResult;
 	}
-	
+
 }

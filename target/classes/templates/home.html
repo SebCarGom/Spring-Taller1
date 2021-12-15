@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>HOTEL - NTTDATA</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<body class="card-body">
+	<div class="card text-white bg-dark mb-3">
+		<div class="card-header">Nuevo Hotel</div>
+		<div class="card-body">
+			<form th:action="@{./addHotel}" th:object="${hotelV}" method="POST">
+				<div class="form-group">
+					<label for="inpHotelId">Id</label> <input type="text"
+						required="required" class="form-control" id="inpHotelId"
+						name="hotelId" /> <label for="inpHotelFloor">Plantas</label> <input
+						type="text" required="required" class="form-control"
+						id="inpHotelFloor" name="hotelFloors" /> <label
+						for="inpHotelApart">Apartamentos</label> <input type="text"
+						required="required" class="form-control" id="inpHotelApart"
+						name="hotelApartmentsPerFloor" />
+				</div>
+				<button type="submit" name="btnSaveHotel" class="btn btn-success">Añadir</button>
+			</form>
+		</div>
+		<div class="card-header">Nueva Persona</div>
+		<div class="card-body">
+			<form th:action="@{./addPerson}" th:object="${personV}" method="POST">
+				<div class="form-group">
+					<label for="inpPersonId">Id</label> <input type="text"
+						required="required" class="form-control" id="inpPersonId"
+						name="personId" /> <label for="inpPersonName">Nombre</label> <input
+						type="text" required="required" class="form-control"
+						id="inpPersonName" name="personName" /> <label
+						for="inpPersonSurname">Apellidos</label> <input type="text"
+						required="required" class="form-control" id="inpPersonSurname"
+						name="personSurname" /> <label for="inpPersonHotelId">Id
+						Hotel</label> <input type="text" required="required" class="form-control"
+						id="inpPersonHotelId" name="hotel" />
+				</div>
+				<button type="submit" name="btnSavePerson" class="btn btn-success">Añadir</button>
+			</form>
+		</div>
+		<div class="card-header">Buscar por Nombre</div>
+		<div class="card-body">
+			<form th:action="@{./findByName}" th:object="${personV}"
+				method="POST">
+				<div class="form-group">
+					<label for="inpPersonName">Nombre</label> <input type="text"
+						name="personName" />
+				</div>
+				<button type="submit" name="findByName" class="btn btn-success">Buscar</button>
+			</form>
+		</div>
+		<div class="card-header">Buscar por Apellidos</div>
+		<div class="card-body">
+			<form th:action="@{./findBySurname}" th:object="${personV}"
+				method="POST">
+				<div class="form-group">
+					<label for="inpPersonSurname">Apellidos</label> <input type="text"
+						name="personSurname" />
+				</div>
+				<button type="submit" name="findBySurname" class="btn btn-success">Buscar</button>
+			</form>
+		</div>
+		<a href="./showPeople"><button name="ShowPeople"
+				class="btn btn-success">Mostrar Todas las Personas
+				Registradas</button></a>
+	</div>
+</body>
+</html>

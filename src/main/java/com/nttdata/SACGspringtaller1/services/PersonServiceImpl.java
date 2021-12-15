@@ -2,17 +2,23 @@ package com.nttdata.SACGspringtaller1.services;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.nttdata.SACGspringtaller1.persistence.Person;
 import com.nttdata.SACGspringtaller1.persistence.PersonRepositoryI;
 
-public class PersonServiceImpl implements PersonServiceI{
-	
+@Service
+public class PersonServiceImpl implements PersonServiceI {
+
+	@Autowired
 	private PersonRepositoryI personRepositoryI;
 
 	@Override
-	public void addNewPerson(Person newPerson) {
+	public Person addNewPerson(Person newPerson) {
 		personRepositoryI.save(newPerson);
-		
+
+		return newPerson;
 	}
 
 	@Override
@@ -21,13 +27,13 @@ public class PersonServiceImpl implements PersonServiceI{
 	}
 
 	@Override
-	public Person getPersonByName(String personName) {
-		return personRepositoryI.findByName(personName);
+	public List<Person> getPersonByName(String personName) {
+		return personRepositoryI.findByPersonName(personName);
 	}
 
 	@Override
-	public Person getPersonBySurname(String personSurname) {
-		return personRepositoryI.findBySurname(personSurname);
+	public List<Person> getPersonBySurname(String personSurname) {
+		return personRepositoryI.findByPersonSurname(personSurname);
 	}
 
 }

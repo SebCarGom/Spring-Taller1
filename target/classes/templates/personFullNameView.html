@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>HOTEL - NTTDATA</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div class="card-body"></div>
+	<div class="card text-white bg-dark mb-3">
+		<div class="card-header">Persona</div>
+		<div class="card-body">
+			<table class="table table-striped table-dark">
+				<thead class="thead-light">
+					<tr>
+						<th scope="col">ID Persona</th>
+						<th scope="col">Nombre</th>
+						<th scope="col">Apellidos</th>
+					</tr>
+				</thead>
+				<tbody>
+					<th:block th:each="person: ${peopleFullName}">
+						<tr>
+							<td scope="row" th:text="${person.personId}" />
+							<td scope="row" th:text="${person.personName}" />
+							<td scope="row" th:text="${person.personSurname}" />
+						</tr>
+					</th:block>
+				</tbody>
+			</table>
+		</div>
+		<a href="./../home/"><button name="ShowPeopleByNames"
+				class="btn btn-success">Volver a la página principal</button></a>
+	</div>
+</body>
+</html>

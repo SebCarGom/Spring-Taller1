@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -12,10 +13,13 @@ import javax.persistence.Table;
 public class Person {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int personId;
 	private String personName;
 	private String personSurname;
+	
+	@ManyToOne
+
 	private Hotel hotel;
 	
 	/**
@@ -23,11 +27,16 @@ public class Person {
 	 * @param personName
 	 * @param personSurname
 	 */
-	public Person(int personId, String personName, String personSurname) {
+	public Person(int personId, String personName, String personSurname, Hotel hotel) {
 		super();
 		this.personId = personId;
 		this.personName = personName;
 		this.personSurname = personSurname;
+		this.hotel = hotel;
+	}
+	
+	public Person() {
+		super();
 	}
 
 	/**
